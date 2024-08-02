@@ -1,0 +1,1851 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+
+<!-- Mirrored from e-services.qiyas.sa/Qiyas.TRAS.Web.Internet/Registration/CompleteAccountRequest by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 02 Aug 2024 15:49:57 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <title>
+        Qiyas - Complete Account Request
+    </title>
+    <meta charset="UTF-8" />
+    <meta name="description" content="TRAS APPLICSATION" />
+    <meta name="keywords" content="QIYAS,TRAS,EXAMS,CENTER,CBT,PBT" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <script type="text/javascript">
+        var utilsURL = '../Static-New/en/js/utils.js';
+        var ClickHereOrDragTheFileHer = 'Click here or drag the file here to upload';
+        var TheTypeOfFilesAllowed = 'The type of files allowed';
+        var DeleteThisPhoto = 'Delete this photo?';
+    </script>
+    <link href="../Static-New/Images/favicon2.ico" rel="Shortcut Icon" type="image/x-icon" />
+    <link type="text/css" rel="stylesheet" href="../Static-New/en/css/tras.css" />
+    <script type="text/javascript" src="../Static-New/en/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../Static-New/en/js/jquery.plugin.js"></script>
+    <script type="text/javascript" src="../Static-New/en/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../Static-New/en/js/ToolTip.js"></script>
+    <script type="text/javascript" src="../Static-New/en/js/tras.js"></script>
+    <script src="../Static-New/Scripts/jquery.min.js" type="text/javascript"></script>
+    <script src="../Static-New/Scripts/jquery-ui.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="../Static-New/Scripts/prettify.js" ></script>
+    <script type="text/javascript" src="../Static-New/Scripts/kickstart.js" ></script>
+    <script type="text/javascript" src="../Static-New/Scripts/jquery.filter_input.js" ></script>
+    <script type="text/javascript" src="../Static-New/en/js/wizard.js"></script>
+    <script src="../Static-New/en/js/jquery.flagstrap.js" type="text/javascript"></script>
+    <script src="../Static-New/en/js/intlTelInput.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        // General variable to be used in validations
+        var areaToValidate;
+        var validationErrors;
+
+        //Calendar vars
+        var errorTitleResource = 'Error Notification';
+        var okButtonResource = 'Ok';
+        var cancelButtonResource = 'Cancel';
+        var confirmationMessageTitle = 'Confirmation Message';
+        var loadingMsg = 'Please wait';
+        var OptionalLabel = '(Optional)';
+        var alertTitleResource = 'Alert Message';
+        var isArabicCulture = 'False';
+        var requiredFieldsHintMessage = 'Please fill all mandatory fields which are surrounded with red borders';
+        var dropDownDefaultValue = 'Select...';
+
+        var checkAllText = 'Check All';
+        var uncheckAllText = 'Uncheck All';
+        var noneSelectedText = 'Select...';
+        var selectedText = '# Selected';
+        // General variable to be used in case of having multiple validation summary 
+        var validationSummaryName = "ValidationSummary1";
+        function isDecimalKey(txt, evt) {
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode == 46) {
+                //Check if the text already contains the . character
+                if (txt.value.indexOf('.') === -1) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                if (charCode > 31
+                    && (charCode < 48 || charCode > 57))
+                    return false;
+            }
+            return true;
+        }
+
+        $(function() {
+            //No script tag, by default its shown, if the user has java script, it will be hidden and the main content shown
+            $('#noscript').hide();
+            $('.scriptRequired').show();
+
+            //Disable This plugin in credit card page only beacuse it will effect credit card library and make it not work 
+         
+            var requestedURL  = 'CompleteAccountRequest.html';
+            
+            //PayPreviousFinancialDues
+            if (
+                requestedURL.toLowerCase() != "ChargeBalance".toLowerCase() && 
+                    requestedURL.toLowerCase() != "Payment".toLowerCase() &&
+                    requestedURL.toLowerCase() != "ObjectionResultPayment".toLowerCase() &&
+                    requestedURL.toLowerCase() != "PayPreviousFinancialDues".toLowerCase()
+            
+            ) {
+                $("select").select2({
+                    allowClear: true,
+                });
+            }
+           
+            $('.mandatory').append(jQuery('<span class="flag"> *</span>'));
+            $('.optional').append(jQuery('<span class="flag"> ' + OptionalLabel + '</span>'));
+
+            $('.t-arrow-next').attr('title', 'Next Page');
+            $('.t-arrow-prev').attr('title', 'Previous Pages');
+            $('.t-arrow-first').attr('title', 'First Page');
+            $('.t-arrow-last').attr('title', 'Last Page');
+
+
+            $('.number,.phone').filter_input({ regex: '[0-9]' });
+            $('.number,.phone').bind("cut copy paste", function(e) {
+                e.preventDefault();
+            });
+            $(".number,.phone").keypress(function(event) {
+                var ew = event.which;
+                if (ew == 32)
+                    return true;
+                if (48 <= ew && ew <= 57)
+                    return true;
+                if (65 <= ew && ew <= 90)
+                    return true;
+                if (97 <= ew && ew <= 122)
+                    return true;
+                return false;
+            });
+        });
+        
+        function requiredValidation(field) {
+            var valid = field.val().replace(/\s/g, "") != "";
+            if (!valid)
+                field.addClass("input-validation-error");
+            else
+                field.removeClass("input-validation-error");
+            return valid;
+        }
+        function IsValidList(groupName) {
+            var result = true;
+            $(groupName).each(function () {
+
+                if ($(this).is("select")) {
+
+                    if ($(this).val() <= 0) {
+                        result = false;
+                        $(this).css({
+                            "border": "1px solid #a00"
+                        });
+                    } else {
+                        $(this).css({
+                            "border": ""
+                        });
+                    }
+
+                } else {
+
+                    if ($.trim($(this).val()) == '') {
+                        result = false;
+                        $(this).css({
+                            "border": "1px solid #a00"
+                        });
+                    }
+                    else {
+                        $(this).css({
+                            "border": ""
+                        });
+                    }
+                }
+
+            });
+            return result;
+        }
+
+        function CheckUserLoggedIn() {
+            $.get("/Qiyas.TRAS.Web.Internet/Common/IsCurrentUserLogedIn", function(data) {
+
+                var isLoggedInUser = data;
+                var pageName = window.location.pathname.split('https://e-services.qiyas.sa/')[window.location.pathname.split('https://e-services.qiyas.sa/').length - 1];
+               
+                pageName = $.trim(pageName);
+                if (isLoggedInUser == false && pageName != "") {
+                    var pages = ["ForgetPassword", "NewRegisterSaudiCandidate", "NewRegisterWithoutCandidate", "NewRegisterOutCandidate","Qiyas.TRAS.Web.Internet","Index","Account","CompleteAccountRequest","SearchCandidateSchools","Error","activateaccount","Maintenance","NafathLoginPortal","LoginUserWithotCaptcha"];
+                    var result = (pages.indexOf(pageName) > -1);
+                    if (result == false) {
+                        // go home page
+                        window.location.href = "../index.html";
+                    } 
+                }
+            });
+        }
+
+        window.onload = function() {
+            CheckUserLoggedIn();
+        };
+
+        
+    </script>
+    <script type="text/javascript">
+        //TODO: check later by Ali and Ibrahim Hawari
+        //        $(function () {
+        //            GetMasterDate();
+        //        });
+
+
+        $.ajaxSetup({
+            // Disable caching of AJAX responses */
+            cache: false
+        });
+
+
+        //        setInterval(GetMasterDate, 5000);
+        function GetMasterDate() {
+
+            var d = new Date();
+            var hours = d.getHours();
+            var minutes = d.getMinutes();
+            var ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            var strTime = hours + ':' + minutes + ' ' + ampm;
+            var dateText = d.getUTCFullYear() + '/' + (d.getUTCMonth() + 1) + '/' + d.getUTCDate();
+            var Datearr = dateText.split('https://e-services.qiyas.sa/');
+            var jd = (name == 'jd'
+                ? parseFloat($('#jDate').val(), 10)
+                : $.calendars.instance(name)
+                    .newDate(parseInt(Datearr[0], 10), parseInt(Datearr[1], 10), parseInt(Datearr[2], 10)).toJD());
+            convertto = "ummalqura";
+            var date = $.calendars.instance(convertto).fromJD(jd);
+            var month = date.month();
+            if (date.month() < 10 & date.month() > 0)
+                month = "0" + date.month();
+            var day = date.day();
+            if (date.day() < 10 & date.day() > 0)
+                var ConvertedVale = month + "/" + day + "/" + date.formatYear();
+            var weekday = new Array(7);
+            weekday = [
+                'Sunday', 'Monday',
+                'Tuesday', 'Wednesday',
+                'Thursday', 'Friday',
+                'Satarday'
+            ];
+            var monthNames = [
+                'January', 'February', 'March',
+                'April', 'May', 'June',
+                'July', 'August', 'September',
+                'October', 'November', 'December'
+            ];
+            var ummalquraNames = [
+                'Muharram', 'Safar',
+                'Rabia Alawal', 'Rabia Ath-Thani',
+                'Jumada Alawal',
+                'Jumada Ath-Thani', 'Rajab',
+                'Shaaban', 'Ramadan',
+                'Shawwal',
+                'Dhul-Qaada', 'Dhul-Hijja'
+            ];
+            var DaytText = weekday[d.getDay()];
+            var monthNames = DaytText +
+                " &nbsp;" +
+                day +
+                " &nbsp;" +
+                ummalquraNames[parseInt(month) - 1] +
+                "&nbsp;" +
+                date.formatYear() +
+                " &nbsp;/ &nbsp;" +
+                d.getUTCDate() +
+                " &nbsp;" +
+                monthNames[parseInt(d.getUTCMonth())] +
+                "&nbsp; " +
+                d.getUTCFullYear();
+            $("#masterdate")
+                .html(monthNames + " &nbsp; | &nbsp;" + 'Makkah Time' + "&nbsp;" + strTime);
+        }
+
+    </script>
+    <script type="text/javascript">
+        var errorTitleResource = 'Error Notification';
+        var OptionalLabel = '(Optional)';
+
+        function showLoadingPanel() {
+            $('.page-loading').show();
+        }
+
+        function hideLoadingPanel() {
+            $('.page-loading').hide();
+        }
+        
+        function showSubLoadingPanel() {
+            $('.loader-container').show();
+        }
+        
+        function hideSubLoadingPanel() {
+            $('.loader-container').hide();
+        }
+
+        function showErrorDialog(Err_IncorrectInfo, errorTitleResource) {
+            if (Err_IncorrectInfo == '') {
+                Err_IncorrectInfo = "Error";
+            }
+            $('#globalPopErrorTitle').html(errorTitleResource);
+            $('#globalErrorMessageBody').html(Err_IncorrectInfo);
+            $('#errorDailogClick').click();
+        }
+        function showErrorDialog(Err_IncorrectInfo) {
+            if (Err_IncorrectInfo == '') {
+                Err_IncorrectInfo = "Error";
+            }
+            $('#globalPopErrorTitle').html("Attention");
+            $('#globalErrorMessageBody').html(Err_IncorrectInfo);
+            $('#errorDailogClick').click();
+        }
+
+        function showValidationMessages() {
+
+            var isValid = true;
+            var otherValidations = "";
+
+            $(areaToValidate).each(function () {
+                if ($(this).attr("data-val-required") != undefined && $(this).attr("data-val-required") != "" && ($(this).attr("value") == undefined || $(this).attr("value") == "" || $(this).val().trim() == "")) {
+                    isValid = false;
+                    $(this).css("border", "1px solid #a00");
+                    $(this).siblings().children('.chzn-single').css("border", "1px solid #a00");
+
+                    if ($(this).parents(".ui-accordion-content").prev(".ui-accordion-header").attr("aria-selected") != "true") {
+                        $(this).parents(".ui-accordion-content").prev(".ui-accordion-header").click();
+                    }
+                }
+                else {
+                    $(this).css("border-color", "#dcdcdc");
+                    $(this).siblings().children('.chzn-single').css("border-color", "#dcdcdc");
+                }
+                if (!$(this).valid() && $(this).val() != '' && $(this).attr("data-val-numbercomparevalidator") != undefined && $(this).attr("data-val-numbercomparevalidator") != "") {
+                    var notValidCompare = false;
+                    var first = parseFloat($(this).val());
+                    var second = parseFloat($('#' + $(this).attr("data-val-numbercomparevalidator-otherpropertyname")).val());
+                    var compareoption = $(this).attr("data-val-numbercomparevalidator-compareoption");
+                    switch (compareoption) {
+                    case '1':
+                        //check for equal if (first != second) result = false; 
+                        break;
+                    case '2':
+                        //check	for greater than 
+                        if (first <= second)
+                            notValidCompare = true;
+                        break;
+                    case '3': //check for	less than 
+                        if (first >= second)
+                            notValidCompare = true;
+                        break;
+                    case '4': //check for greater	than or equal 
+                        if (first < second)
+                            notValidCompare = true;
+                        break;
+                    case '5': //check for less	than or equal 
+                        if (first > second)
+                            notValidCompare = true;
+                        break;
+                    case '6':
+                        if (first == second)
+                            notValidCompare = true;
+                        break;
+                    }
+
+                    if (notValidCompare) {
+                        otherValidations = otherValidations + $(this).attr("data-val-numbercomparevalidator") + "<br />";
+                        $(this).css("border-color", "#a00");
+                    }
+                }
+                if ($(this).val() != '' && $(this).attr("data-val-regex") != undefined && $(this).attr("data-val-regex") != "") {
+                    var pattern = new RegExp($(this).attr("data-val-regex-pattern"));
+                    if (!pattern.test($(this).val()))
+                        otherValidations = otherValidations + $(this).attr("data-val-regex") + "<br />";
+                }
+                if (!$(this).valid() && $(this).val() != '' && $(this).attr("data-val-equalto") != undefined && $(this).attr("data-val-equalto") != "") {
+                    if (otherValidations.toLowerCase().indexOf($(this).attr("data-val-equalto")) < 0) {
+                        otherValidations = otherValidations + $(this).attr("data-val-equalto") + "<br />";
+                    }
+                    $(this).css("border-color", "#a00");
+                }
+                if (!$(this).valid() && $(this).val() != '' && $(this).attr("data-val-length") != undefined && $(this).attr("data-val-length") != "") {
+                    if (otherValidations.toLowerCase().indexOf($(this).attr("data-val-length")) < 0) {
+                        otherValidations = otherValidations + $(this).attr("data-val-length") + "<br	/>";
+                    }
+                    $(this).css("border-color", "#a00");
+                }
+                if (!$(this).valid() && $(this).val() != '' && $(this).attr("data-val-range") != undefined && $(this).attr("data-val-range") != "") {
+                    if (otherValidations.toLowerCase().indexOf($(this).attr("data-val-range")) < 0) {
+                        otherValidations = otherValidations + $(this).attr("data-val-range") + "<br/>";
+                    }
+                    $(this).css("border-color", "#a00");
+                }
+            });
+
+            $("#" + validationSummaryName).text('');
+            $("#" + validationSummaryName + " span#requiredFields").remove();
+
+            if (!isValid) {
+                $("#" + validationSummaryName).append('<span id="requiredFields">Please fill all mandatory fields which are surrounded with red borders</span>');
+                $("#ValidationSummaryBase").show();
+            }
+
+            if (!isValid || otherValidations != "") {
+                $("#" + validationSummaryName).append(otherValidations);
+                $("#ValidationSummaryBase").show();
+                $("html, body").animate({ scrollTop: 0 }, "slow");
+            }
+        }
+    </script>
+    <style type="text/css">
+        .footer-toggle{
+            background: #5b5b5b; margin:10px -5px -20px -5px; padding:0 10px 10px 10px;
+        }
+        .footer-toggle-link{
+            display:block;
+            background:#666666;
+            padding:10px;
+            cursor:pointer;
+            color:#fff;
+        }
+        
+        .loader-container {
+            position: fixed;
+            z-index: 999;
+            height: 2em;
+            width: 2em;
+            overflow: visible;
+            margin: auto;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            display:none;
+        }
+
+			/* Transparent Overlay */
+        .loader-container:before {
+            content: '';
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.2);
+        }
+        .loader-bg{
+            display:block;
+            width: 60px;
+            height: 60px;
+            padding:10px;
+            border-radius: 5px;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .loader {
+            display:block;
+            border: 6px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 6px solid #354458;
+            width: 40px;
+            height: 40px;
+            -webkit-animation: spin 0.5s linear infinite;
+            animation: spin 0.5s linear infinite;
+        }
+
+        @-webkit-keyframes spin {
+            0% { -webkit-transform: rotate(0deg); }
+            100% { -webkit-transform: rotate(360deg); }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #backtotop {
+            display:none;
+            position:fixed;
+            bottom:20px;
+            right:30px;
+            z-index:99;
+            background-color: #355a69;
+            color: #acc0c1;
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            padding: 3px;
+            font-size: 22px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            cursor: pointer;
+            opacity: 0.8;
+            transition: 0.3s;
+            border: 0;
+        }
+        
+    </style>
+    <script>
+        function footerToggle() {
+            target_ = $(".footer-slideup");
+            source_ = "footer-toggle-link";
+            target_.stop();
+            if (target_.is(":hidden")) {
+                target_.slideDown(900);
+                $(".footer-toggle-link span").html("Technical support");
+                $("." + source_ + " i").removeClass("fa-angle-double-up");
+                $("." + source_ + " i").addClass("fa-angle-double-down");
+
+                $("html, body").animate({
+                    scrollTop: $(".footer-slideup").offset().top
+                }, 900);
+
+            } else {
+                target_.slideUp(900);
+                $(".footer-toggle-link span").html("Technical support");
+                $("." + source_ + " i").removeClass("fa-angle-double-down");
+                $("." + source_ + " i").addClass("fa-angle-double-up");
+            }
+        }
+    </script>
+    <script type="text/javascript" src="../Static-New/en/js/jquery.calendars.js"></script>
+    <script type="text/javascript" src="../Static-New/en/js/jquery.calendars.plus.js"></script>
+    <script type="text/javascript" src="../Static-New/en/js/jquery.calendars.picker.js"></script>
+    <script type="text/javascript" src="../Static-New/en/js/jquery.calendars.ummalqura.js" ></script>
+    <script type="text/javascript" src="../Static-New/en/js/jquery.calendars.ummalqura-ar.js" ></script>
+    <script type="text/javascript" src="../Static-New/en/js/wickedpicker.js" ></script>
+    <script type="text/javascript" src="../Static-New/en/js/calender.js" ></script>
+    <script type="text/javascript" src="../Static-New/en/js/select2.full.js" ></script>
+</head>
+<body oncontextmenu="return false">
+    <div id="warp">
+        <div class="page-loading" style="opacity: 0.5;">
+        </div>
+        <div class="loader-container">
+            <div class="loader-bg">
+                <div class="loader">
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <!-- /.banner -->
+            
+            <div class="row banner-row hidden-print">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 logoDiv">
+                            <div class="banner">
+                                <button type="button" class="btn btn-default slide-btn hidden-lg hidden-md " onclick="openNav()">
+                                    <span><i class="fa fa-bars" aria-hidden="true"></i></span>
+                                </button>
+                                    <a href="../index.html">
+                                        <img class="hidden-xs" src="../Static-New/images/logoDesktop.png" alt="" />
+                                        <img class="hidden-lg hidden-md hidden-sm " src="../Static-New/images/logoMobile.png" alt="" />
+                                    </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 hidden-sm hidden-xs languageBtn">
+                            <div class="pull-right lang" onclick="document.location=' ../index.html'">
+                                <span lang="en" class="btn btn-default " onclick=""><span class="sa">
+                                </span><strong>عربي</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.banner -->
+            <div class="row page-content">
+                <div class="row visible-print" style="display: none;">
+                    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 logoDiv">
+                        <div class="banner">
+                            <a>
+                                <img src="../Static-New/images/logoDesktop.png" alt="Qiyas" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <script type="text/javascript">
+    var TheFileIsTooLarge = 'The file is too large';
+    var mega = 'Mega';
+    var MaximumSize = 'Maximum size';
+    var kChar = 'K';
+    var bChar = 'B';
+    var YouCanNotUploadFilesOfThi = 'You can not upload files of this type';
+    var DeleteThisFile = 'Delete this file?';
+    var TheSizeOfTheImage = 'The size of the image';
+    var kbChar = 'KB';
+    var FileSizeAllowed = 'File size allowed';
+    var Megabyte = 'Megabyte';
+    var maxAttachFileSize = '0';
+    var Editphoto = false;
+    var EditDocument = false;
+    var EditProof = false;
+
+    var txtMobileNumberError9Digit = "Mobile number must be 9 numbers";
+    var txtMobileNumberError4To13Digits = "Mobile number must be 4 to 13 digits";
+
+    var txtMobileNumber2Error9Digit ="Another mobile number must be 9 numbers";
+    var txtMobileNumber2Error4To13Digits ="Another mobile number must be 4 to 13 digits";
+
+    var txtPhoneNumberError9Digit ="Telephone number must consist of 9 digits";
+    var txtPhoneNumberError4To13Digits = "Telephone number must be 4 to 13 digits";
+    
+</script>
+<script src="../Static-New/Scripts/Registration/CompleteAccountRequestDropzone.js" type="text/javascript"></script>
+<script src="../Static-New/Scripts/Registration/CompleteAccountRequest.js" type="text/javascript"></script>
+<script src="../Static-New/Scripts/Registration/CandidateNameArea.js" type="text/javascript"></script>
+<script src="../Static-New/Scripts/JQueryCascade.js" type="text/javascript"></script>
+<script src="../Static-New/Scripts/jquery.validate.min.js" type="text/javascript"></script>
+<script src="../Static-New/Scripts/jquery.validate.unobtrusive.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    var homePageUrl = '../index.html';
+    var PleaseFillOutAllMandatory = 'Please fill out all mandatory fields enclosed with a red frame';
+    var numberStartedWithZeroError = 'The phone number must not strart with zero';
+    var checkApplicationNumberAndMobile = '/Qiyas.TRAS.Web.Internet/Registration/CheckMobileAndApplicationNumberCandidate';
+    var valError1 = "Your Account Status Is Not Valid For This Action";
+    var valError2 = "Invalid Info";
+    var without = '3';
+    var withoutPersonalCertificate = 'Candidate personal info form';
+    var personalCertificate = 'Passport or ID';
+    var getCitiesByCountryIdUrl = '../Common/Error4064.html';
+    var getCitiesByRegionIdUrl = '../Common/Error4064.html';
+    var getCountryCodeUrl = '../Common/Error4064.html';
+    var GetRegionsByCountryId='/Qiyas.TRAS.Web.Internet/Common/GetRegionsByCountryId';
+    var nonSaudiNonResident = '2';
+    var EmailNotMatch = 'Email Addresses Not Match';
+    var EmailIsIncorrect = 'Email is incorrect';
+    var defaultItemLabel = 'Select...';
+    var firstNameArabicError   ='The first Arabic name must be entered in Arabic';
+    var secondNameArabicError  ='The second Arabic name must be entered in Arabic';
+    var thirdNameArabicError   ='The third Arabic name must be entered in Arabic';
+    var lastNameArabicError    ='The last Arabic name must be entered in Arabic';
+    var firstNameEnglishError  ='The first English name must be entered in English';
+    var secondNameEnglishError ='The second English name must be entered in English';
+    var thirdNameEnglishError  ='The third English name must be entered in English';
+    var lastNameEnglishError   ='The last English name must be entered in English';
+    var personalCertificateMaxSizeErrorMessage= 'The maxiumum size for file is 1 MB';
+    var personalCertificateMaxSizeErrorMessageImage='The maxiumum size for image is 500 KB';
+    var personalCertificateTypeErrorMessage= 'You can not upload file with this type';
+    var personalImageMaxSizeErrorMessage= 'The maxiumum size for image is 500 KB';
+    var personalImageTypeErrorMessage= 'You can not upload Image with this type';
+    var personalImageMaxSize =  '507200';
+    var personalImageValidType =  'image/jpeg,image/png,image/jpg';
+    var personalCertificateValidType =  'application/pdf,image/jpeg,image/png,image/jpg';
+    var personalCertificateMaxSize =  '1048576';
+    var view = 'View';
+    imgView = '../Static/Images/common/view.png';
+    var getCandidateNotificationByIdURl = "../Common/Error4064.html";
+    var sendNotificationTitle= 'Notification';
+    var Err_IncorrectCapatcha = 'Invalid [authentication code] Captcha';
+    
+    var CityID;
+    var RegionId;
+    var CandidateTypeId;
+    $(function() {
+        $('#dvbrdcrumb').remove();
+        $('.DateUmmAlQuraPicker').calendarsPicker({
+            calendar: $.calendars.instance('UmmAlQura'),
+            yearRange: "1300:2024",
+            dateFormat: 'yyyy/mm/dd',
+
+            onClose: function() {
+                var checkdate = "";
+                checkdate = $(".DateUmmAlQuraPicker ").val();
+                if (checkdate != "") {
+                    validateConvertDate($(this).val(), "ummalqura", "dateGreGorianPicker");
+                }
+            }
+        });
+        $('.dateGreGorianPicker').calendarsPicker({
+            yearRange: "1900:2024",
+            dateFormat: 'yyyy/mm/dd',
+            onClose: function () {
+                var checkdate = "";
+                checkdate = $(".dateGreGorianPicker").val();
+                if (checkdate != "") {
+                    validateConvertDate($(this).val(), "gregorian", "DateUmmAlQuraPicker");
+                }
+            }
+        });
+    
+    });
+   
+// Create the mock file:
+
+</script>
+<form action="https://e-services.qiyas.sa/Qiyas.TRAS.Web.Internet/Registration/CompleteAccountRequest" enctype="multipart/form-data" method="post"><form action="https://e-services.qiyas.sa/Qiyas.TRAS.Web.Internet/Registration/CompleteAccountRequest" method="post">    <input type="hidden" id="CandidateTypeId" />
+    <input type="hidden" id="hdUpload" value=""/>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <section>
+                    <div class="wizard">
+                        <div class="wizard-inner">
+                            <div class="connecting-line"></div>
+                            <ul class="nav nav-tabs registration-main" role="tablist">
+                                <li role="presentation" class="active">
+                                    <center> Application data</center>
+                                    <a href="#step1" data-toggle="tab" aria-controls="Step 1" role="tab"  id="step1Href">
+                                        <span class="round-tab" id="tabStep1">
+                                            1
+                                        </span>
+                                    </a>
+                                </li>
+                                <li role="presentation" class="disabled">
+                                    <center>Contact Information</center>
+                                    <a href="#step2" data-toggle="tab" aria-controls="Step 2" role="tab" id="step2Href">
+                                        <span class="round-tab"  id="tabStep2">
+                                            2
+                                        </span>
+                                    </a>
+                                </li>
+                                <li role="presentation" class="disabled">
+                                    <center>The process is complete</center>
+                                    <a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" id="completeHerf">
+                                        <span class="round-tab" id="tabComplete">
+                                         3
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-content">
+                            <div class="tab-pane active" role="tabpanel" id="step1">
+                                  <div class="col-xs-12" id="errorbox1" hidden>
+                                                    <div class="alert alert-danger"  id="errorbox1Inner">
+                                                         </div>
+                                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+                                    <div class=" clearfix">
+                                        <legend>  Application data</legend>
+                                        <div class="col-xs-12">
+                                            <div class="row">
+                                                    <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-12 AppNoDiv">
+                                            <label class="mandatory control-label"> Application Number </label>
+                                            <input data-val="true" data-val-required="The ApplicationNumber field is required." id="ApplicationNumber" name="ApplicationNumber" type="text" value=""  class="form-control"  maxlength="10" />
+                                        </div>
+                                            </div>
+                                        </div>
+                                         <div class="col-xs-12">
+                                            <div class="row">
+                                                      
+                                        <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-12 CheckmobileDiv" id="CheckdivMobileNumber">
+                                            <label class="mandatory control-label" id="checklblMobileNumber">Mobile No</label>
+                                            <div class="go-left">
+                                                <input
+                                                    
+              
+                                                
+                                                    type="text" 
+                                                    class="phone form-control" 
+                                                    id="ChecktxtMobileNumber" 
+                                                    maxlength="13" 
+                                                    />
+                                                 
+                                            </div>
+                                        </div>
+                                            </div>
+                                        </div>
+                              <div class="col-xs-12">
+                                            <div class="row">
+                                                    <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                            <style>
+    .wizard [role=presentation]
+    {
+        pointer-events: auto !important;
+    }
+</style>
+<script src="../../../www.google.com/recaptcha/apifef7.js?hl=en" type="text/javascript"></script>
+<div class="g-recaptcha" data-sitekey="6LfjViEaAAAAAFWldYbCkHnWS-HNvi0Ct2QleE9n">
+</div>
+
+                                        </div>
+                                            </div>
+                                        </div>
+                                     
+                                    </div>
+                                    <hr />
+                                        <ul class="list-inline clearfix marg">
+                                    <li class="first"><button type="button" class="btn btn-primary btn-info-full" onclick="showStep2();">Next</button></li>
+                                    <li class="last"><button type="button" class="btn btn-default" onclick=" window.location.href = homePageUrl; ">Cancel</button></li>
+                                </ul>
+                                </div>
+                            
+                                <input type="hidden" id="PhoneNumberLength" value="13" />
+                                <input type="hidden" id="MobileNumberLength" value="13" />
+                               
+                            </div>
+                            <div class="tab-pane" role="tabpanel" id="step2">
+                                 <div class="form-group" id="step2ErrorMessages" hidden>
+                                <div class="alert alert-danger" style="margin-bottom: 0" id="step2ErrorMessagesInner">
+                                   </div>
+                            </div> 
+                                <div id="dvNotification" class="clearfix commentDiv">
+                                   
+                                    <div class="form-group col-xs-12 noPadding " id="MsgNotification">
+                                <div class="alert alert-warning" style="margin-bottom: 0" id="MsgInnerNotification">
+                                  Please See The Notices Below</div>
+                            </div> 
+                                 
+                                    <div id="dvNotificationMessage" class="col-xs-12 noPadding padding-xs">
+                                        <br class="clear" />
+                                        <div class="table" >
+                                            <table class="table table-striped table-hover  table-bordered text-center" >
+                                                <thead class="t-header">
+                                                    <tr>
+                                                        <th class="rgHeader col-lg-2">
+                                                            Date of notification
+                                                        </th>
+                                                        <th colspan="3" class="rgHeader col-lg-10">  Details
+                                                        </th>
+                                                    </tr>
+                                                   
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <br />
+                                <legend>candidate Details </legend>
+                                <div id="dvPersoanlInfo" class="clearfix">
+                                    <div class="row">
+                                        <div class="form-group col-lg-8 col-md-12 col-sm-12 col-xs-12 ">
+                                            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <label class="control-label mandatory">
+                                                    Name (in Arabic)
+                                                </label>
+                                                <div class="light-bg clearfix">
+                                                    <div class="form-group col-lg-3 col-md-6 col-sm-6 col-xs-12 FNameA">
+                                                        <label class="control-label mandatory">
+                                                            First Name
+                                                        </label>
+                                                        <input data-val="true" data-val-regex="First arabic name value should be entered in arabic." data-val-regex-pattern="[- ء-ي]+" data-val-required="The FirstName field is required." id="FirstName" name="FirstName" type="text" value=""  class="form-control"  tabindex="1"  maxlength="20"  title="First Name" disabled='disabled'/>
+                                                    </div>
+                                                    <div class="form-group col-lg-3 col-md-6 col-sm-6 col-xs-12 SNameA">
+                                                        <label class="control-label mandatory">
+                                                            Father Name
+                                                        </label>
+                                                        <input data-val="true" data-val-regex="Second arabic name value should be entered in arabic." data-val-regex-pattern="[- ء-ي]+" data-val-required="The SecondName field is required." id="SecondName" name="SecondName" type="text" value=""  class="form-control"  tabindex="2"  maxlength="20"  title="Father Name" disabled='disabled'/>
+                                                    </div>
+                                                    <div id="dvGrandfatherName" class="form-group col-lg-3 col-md-6 col-sm-6 col-xs-12 TNameA">
+                                                        <label class="control-label mandatory" id="lblGrandfatherName" style="width: 156px">
+                                                            Grandfather Name
+                                                        </label>
+                                                        <input data-val="true" data-val-regex="Third arabic name value should be entered in arabic." data-val-regex-pattern="[- ء-ي]+" data-val-required="The ThirdName field is required." id="ThirdName" name="ThirdName" type="text" value=""  class="form-control"  tabindex="3"  maxlength="20"  title="Grandfather Name" disabled='disabled'/>
+                                                    </div>
+                                                    <div class="form-group col-lg-3 col-md-6 col-sm-6 col-xs-12 LNameA">
+                                                        <label class="control-label mandatory">
+                                                            Family Name</label>
+                                                        <input data-val="true" data-val-regex="Last arabic name value should be entered in arabic." data-val-regex-pattern="[- ء-ي]+" data-val-required="The LastName field is required." id="LastName" name="LastName" type="text" value=""  class="form-control"  tabindex="4"  maxlength="20"  title="Family Name" disabled='disabled'/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                                <label>
+                                                    Full Name (English)
+                                                </label>
+                                                <div class="light-bg clearfix">
+                                                        <div class="form-group col-lg-3 col-md-6 col-sm-6 col-xs-12 FNameE">
+                                                            <label class="control-label mandatory">First Name</label>
+                                                            <input data-val="true" data-val-regex="The value of the first english name should be entered in english." data-val-regex-pattern="^[A-z -]+$" data-val-required="The FirstEnglishName field is required." id="FirstEnglishName" name="FirstEnglishName" type="text" value=""  class="form-control"  tabindex="5"  maxlength="20"  title="First Name" />
+                                                        </div>
+                                                        <div class="form-group col-lg-3 col-md-6 col-sm-6 col-xs-12 SNameE">
+                                                            <label class="control-label mandatory">Middle Name</label>
+                                                            <input data-val="true" data-val-regex="The value of the middle english name should be entered in english." data-val-regex-pattern="^[A-z -]+$" data-val-required="The MiddleEnglishName field is required." id="MiddleEnglishName" name="MiddleEnglishName" type="text" value=""  class="form-control"  tabindex="6"  maxlength="20"  title="Middle Name" />
+                                                        </div>
+                                                        <div class="form-group col-lg-3 col-md-6 col-sm-6 col-xs-12 TNameE">
+                                                            <label class="englishname optional">Third Name</label>
+                                                            <input data-val="true" data-val-regex="The value of the third english name should be entered in english." data-val-regex-pattern="^[A-z -]+$" id="ThirdEnglishName" name="ThirdEnglishName" type="text" value=""  class="form-control"  tabindex="7"  maxlength="20"  title="Third Name" />
+                                                        </div>
+                                                        <div class="form-group col-lg-3 col-md-6 col-sm-6 col-xs-12 LNameE">
+                                                            <label class="control-label mandatory">Last Name</label>
+                                                            <input data-val="true" data-val-regex="The value of the last english name should be entered in english." data-val-regex-pattern="^[A-z -]+$" data-val-required="The LastEnglishName field is required." id="LastEnglishName" name="LastEnglishName" type="text" value=""  class="form-control"  tabindex="8"  maxlength="20"  title="Last Name" />
+                                                        </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-12 col-xs-12 col-sm-12 noPadding">
+                                                  <div class="form-group col-lg-12 col-md-6 col-sm-6 col-xs-12 GenderDv">
+                                                <label class="control-label mandatory">
+                                                    Gender
+                                                </label>
+                                                <select data-val="true" data-val-number="The field GenderId must be a number." data-val-required="The GenderId field is required." id="GenderId" name="GenderId" class="form-control"  onchange="outofKSA_GenderChange(this)"  title="Gender" ><option value="">Select...</option>
+<option value="1">Male</option>
+<option value="2">Female</option>
+</select>
+                                            </div>
+                                            </div>
+                                          
+                                            <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                                <label>
+                                                    Date of Birth (Gregorian) *</label>
+                                                <input type="text" id="dpGregorianBirthDate" name="GregorianDateOfBirth" value=""
+                                                    readonly=&#39;readonly&#39; class="form-control" />
+                                            </div>
+                                            <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                                <label>
+                                                    Date of Birth (Hijri) *</label>
+                                                <input type="text" id="txtHDateOfBirth" name="DateOfBirth" class="form-control" value=""
+                                                    readonly=&#39;readonly&#39; />
+                                            </div>
+
+
+                                            <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                                <div id="dvFemaleAdditionalInfo">
+                                                    <input id="chkBoxHaveSmartCard" name="chkBoxHaveSmartCard" type="checkbox"  title="I have Qiyas Smart Card" class="radio-btn" 
+                                                          />
+                                                    <label for="chkBoxHaveSmartCard">I have Qiyas Smart Card</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-lg-3 col-md-12 col-sm-12 col-xs-12 hidden-xs">
+                                            <div class="form-group col-lg-12 col-md-6 col-sm-6 col-xs-12 showProfilePicture" hidden>
+                                                <div>
+                                                <img class="img-thumbnail"  alt="user image" src="#" id="showProfilePicture" title="Personal Photo" alt="Personal Photo"   />
+                                                    </div>
+                                                    <a onclick="EditPhoto()"> Edit Photo</a>  
+                                            </div>
+                                                  <div class="form-group col-lg-12 col-md-6 col-sm-6 col-xs-12" id="personalPhotoDiv" hidden>
+                                                <label class="control-label optional">
+                                                    Personal Picture</label>
+                                                <div class="dropzone" id="profilePictureUploadDropZone">
+                                                    <div class="fallback">
+                                                        <input id="profilePictureUpload" name="profilePictureUpload" class="form-control requiredText"
+                                                               type="file" accept="image" />
+                                                    </div>
+                                                  </div>
+                                                <input type="hidden" id="profilePictureBase64" name="profilePictureBase64" />
+                                                <input type="hidden" id="profilePicturemimeType" name="profilePicturemimeType" />
+                                                      <input type="hidden" id="profilePicturemimeSize" name="profilePicturemimeSize" />
+                                                       <input type="hidden" id="profilePictureName" name="profilePictureName" />
+                                                   
+                                                          <a onclick="UndoEditPhoto()" id="UndoEditPhoto" hidden> Undo Remove</a>  
+                                               
+                                                    
+                                            </div>
+                                      
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+
+                                <legend>Attachments</legend>
+                                <div id="attachDiv" class="clearfix">
+                                    <div class="clearfix">
+                                        <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-12" id="personalCertificateShowDiv" hidden>
+                                            <label>
+                                                Personal Data Form</label>
+                                                
+                                                <div class="EditFilePDf" style="max-width: 253px;">
+                                                    <a href="#" id="PersonalCertifcateLink"></a>
+                                                    <br/>
+                                                    <i class="fa fa-file-pdf-o  fa-5x  text-danger iconsPic" aria-hidden="true"></i>
+                                                    <br/>
+                                                    <a onclick="EditCertificate()">Modify the personal data form</a>
+
+                                                </div> 
+                                        
+                                        </div>
+                                       
+                                        
+                                        <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-12" id="personalCertificateUploadDiv" hidden>
+                                            <label>
+                                                Personal Data Form</label>
+                                            <div class="dropzone" id="PersonalCertificateDropZone" style="max-width: 253px;">
+                                                <div class="fallback">
+                                                    <input name="PersonalCertificateupload" class="form-control requiredText" type="file"
+                                                           accept="image" />
+                                                </div>
+                                                </div>
+                                            <input type="hidden" id="PersonalCertificateBase64" name="PersonalCertificateBase64" />
+                                            <input type="hidden" id="PersonalCertificatemimeType" name="PersonalCertificatemimeType" />
+                                              <input type="hidden" id="PersonalCertificatemimeSize" name="PersonalCertificatemimeSize" />
+                                            <input type="hidden" id="PersonalCertificateName" name="PersonalCertificateName" />
+                                             <a onclick="UndoEditCertificate()" id="UndoEditCertificate" hidden> Undo Remove</a>  
+                                        </div>
+                                         
+                                        
+                                        <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-12" id="otherDocumentShowDiv" hidden>
+                                            <label>
+                                                Civil Status Review Ticket</label>
+                                            <div class="EditFilePDf" style="max-width: 253px;">
+                                               <a href="#" id="OtherDocumentUrl"></a>
+                                                 <br/>
+                                                <i class="fa fa-file-pdf-o  fa-5x  text-danger iconsForOtherDoc" aria-hidden="true"></i>
+                                                  <br/>
+                                                <a onclick="EditProof()">Modify the status review ticket</a> 
+                                                 </div>
+                                        </div> 
+                                       
+                                        
+
+                                         
+                                        <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-12" id="otherDocumentUploadDiv" hidden>
+                                            <label>
+                                                Civil Status Review Ticket</label>
+                                            <div class="dropzone" id="WithoutOtherDocumentDropZone" style="max-width: 253px;">
+                                                <div class="fallback">
+                                                    <input name="WithoutOtherDocument" class="form-control" type="file" multiple accept="image" />
+                                                </div>
+                                            </div>
+                                            <input type="hidden" id="WithoutOtherDocumentBase64" name="WithoutOtherDocumentBase64" />
+                                            <input type="hidden" id="WithoutOtherDocumentmimeType" name="WithoutOtherDocumentmimeType" />
+                                              <input type="hidden" id="WithoutOtherDocumentmimeSize" name="WithoutOtherDocumentmimeSize" />
+                                            <input type="hidden" id="WithoutOtherDocumentName" name="WithoutOtherDocumentName" />
+                                             <a onclick="UndoEditProofMethod()" id="UndoEditProof" hidden> Undo Remove</a> 
+                                        </div> 
+                                         
+                                    </div>
+                                </div>
+                                <legend>Contact Information</legend>
+                                <div id="dvContactInfo" class="clearfix">
+                                    <div class="row">
+                                        <div class="form-group col-lg-8 col-md-12 col-sm-12 col-xs-12  emailDiv">
+                                            <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-12" id="divEmail">
+                                                <label class="mandatory control-label">Email Address</label>
+                                                <input data-val="true" data-val-regex="The entered Email format is invalid" data-val-regex-pattern="^\w+([-+.&#39;]\w+)*([_\-\.]+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$" data-val-required="The Email field is required." id="Email" name="Email" type="text" value=""  class="form-control txtrequire"  maxlength="50"  title="Email Address" />
+                                            </div>
+                                            <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-12 VerifyDiv" id="divVerifyEmail">
+                                                <label class="mandatory control-label">Verify Email</label>
+                                                <input id="VerifyEmail" name="VerifyEmail" type="text" value=""  class="form-control txtrequire"  maxlength="50"  title="Verify Email" />
+                                            </div>
+    
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-lg-8 col-md-12 col-sm-12 col-xs-12">
+                                       
+                                            <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-12 NationalityDiv">
+                                                <label class="mandatory control-label">Nationality</label>
+                                                <div class="LargeDropDownListNationalityId" style="border: 1px white; border-style: solid;">
+                                                    <select data-val="true" data-val-number="The field NationalityId must be a number." data-val-required="The NationalityId field is required." id="NationalityId" name="NationalityId" class="form-control"  title="Nationality" ><option value="">Select...</option>
+<option value="1">Afghanistan</option>
+<option value="2">Albania</option>
+<option value="3">Algeria</option>
+<option value="4">American Samoa</option>
+<option value="5">Andorra</option>
+<option value="6">Angola</option>
+<option value="7">Anguilla</option>
+<option value="8">Antarctica</option>
+<option value="9">Antigua and Barbuda</option>
+<option value="10">Argentina</option>
+<option value="11">Armenia</option>
+<option value="12">Aruba</option>
+<option value="13">Australia</option>
+<option value="14">Austria</option>
+<option value="15">Azerbaijan</option>
+<option value="16">Bahamas</option>
+<option value="17">Bahrain</option>
+<option value="18">Bangladesh</option>
+<option value="19">Barbados</option>
+<option value="20">Belarus</option>
+<option value="21">Belgium</option>
+<option value="22">Belize</option>
+<option value="23">Benin</option>
+<option value="24">Bermuda</option>
+<option value="25">Bhutan</option>
+<option value="26">Bolivia</option>
+<option value="27">Bosnia and Herzegovina</option>
+<option value="28">Botswana</option>
+<option value="29">Brazil</option>
+<option value="30">Brunei Darussalam</option>
+<option value="31">Bulgaria</option>
+<option value="32">Burkina Faso</option>
+<option value="33">Burundi</option>
+<option value="34">Cambodia</option>
+<option value="35">Cameroon</option>
+<option value="36">Canada</option>
+<option value="37">Cape Verde</option>
+<option value="38">Cayman Islands</option>
+<option value="39">Central African Republic</option>
+<option value="40">Chad</option>
+<option value="41">Chile</option>
+<option value="42">China</option>
+<option value="43">Colombia</option>
+<option value="44">Comoros</option>
+<option value="45">Democratic Republic of the Congo&#160;(Kinshasa)</option>
+<option value="46">Congo, Republic of&#160;(Brazzaville)</option>
+<option value="47">Cook Islands</option>
+<option value="48">Costa Rica</option>
+<option value="49">Cote d&#39;Ivoire</option>
+<option value="50">Croatia</option>
+<option value="51">Cuba</option>
+<option value="52">Cyprus</option>
+<option value="53">Czech Republic</option>
+<option value="54">Denmark</option>
+<option value="55">Djibouti</option>
+<option value="56">Dominica</option>
+<option value="57">Dominican Republic</option>
+<option value="58">East Timor&#160;Timor-Leste</option>
+<option value="59">Ecuador</option>
+<option value="60">Egypt</option>
+<option value="61">El Salvador</option>
+<option value="62">Equatorial Guinea</option>
+<option value="63">Eritrea</option>
+<option value="64">Estonia</option>
+<option value="65">Ethiopia</option>
+<option value="66">Falkland Islands</option>
+<option value="67">Faroe Islands</option>
+<option value="68">Fiji</option>
+<option value="69">Finland</option>
+<option value="70">France</option>
+<option value="71">French Guiana</option>
+<option value="72">French Polynesia</option>
+<option value="73">Gabon</option>
+<option value="74">Gambia</option>
+<option value="75">Georgia</option>
+<option value="76">Germany</option>
+<option value="77">Ghana</option>
+<option value="78">Gibraltar</option>
+<option value="79">Greece</option>
+<option value="80">Greenland</option>
+<option value="81">Grenada</option>
+<option value="82">Guadeloupe</option>
+<option value="83">Guam</option>
+<option value="84">Guatemala</option>
+<option value="85">Guinea</option>
+<option value="86">Guinea-Bissau</option>
+<option value="87">Guyana</option>
+<option value="88">Haiti</option>
+<option value="89">Honduras</option>
+<option value="90">Hong Kong</option>
+<option value="91">Hungary</option>
+<option value="92">Iceland</option>
+<option value="93">India</option>
+<option value="94">Indonesia</option>
+<option value="95">Iran</option>
+<option value="96">Iraq</option>
+<option value="97">Ireland</option>
+<option value="98">Italy</option>
+<option value="99">Jamaica</option>
+<option value="100">Japan</option>
+<option value="101">Jordan</option>
+<option value="102">Kazakhstan</option>
+<option value="103">Kenya</option>
+<option value="104">Kiribati</option>
+<option value="105">Korea, (North Korea)</option>
+<option value="106">Korea, (South Korea)</option>
+<option value="107">Kuwait</option>
+<option value="108">Kyrgyzstan</option>
+<option value="109">Lao, PDR</option>
+<option value="110">Latvia</option>
+<option value="111">Lebanon</option>
+<option value="112">Lesotho</option>
+<option value="113">Liberia</option>
+<option value="114">Libya</option>
+<option value="115">Liechtenstein</option>
+<option value="116">Lithuania</option>
+<option value="117">Luxembourg</option>
+<option value="118">Macao</option>
+<option value="119">Macedonia, Rep.</option>
+<option value="120">Madagascar</option>
+<option value="121">Malawi</option>
+<option value="122">Malaysia</option>
+<option value="123">Maldives</option>
+<option value="124">Mali</option>
+<option value="125">Malta</option>
+<option value="126">Marshall Islands</option>
+<option value="127">Martinique</option>
+<option value="128">Mauritania</option>
+<option value="129">Mauritius</option>
+<option value="130">Mexico</option>
+<option value="131">Micronesia</option>
+<option value="132">Moldova</option>
+<option value="133">Monaco</option>
+<option value="134">Mongolia</option>
+<option value="135">Montenegro</option>
+<option value="136">Montserrat</option>
+<option value="137">Morocco</option>
+<option value="138">Mozambique</option>
+<option value="139">Myanmar, Burma</option>
+<option value="140">Namibia</option>
+<option value="141">Nauru</option>
+<option value="142">Nepal</option>
+<option value="143">Netherlands</option>
+<option value="144">Netherlands Antilles</option>
+<option value="145">New Caledonia</option>
+<option value="146">New Zealand</option>
+<option value="147">Nicaragua</option>
+<option value="148">Niger</option>
+<option value="149">Nigeria</option>
+<option value="150">Niue</option>
+<option value="151">Northern Mariana Islands</option>
+<option value="152">Norway</option>
+<option value="153">Oman</option>
+<option value="154">Pakistan</option>
+<option value="155">Palau</option>
+<option value="156">Palestine</option>
+<option value="157">Panama</option>
+<option value="158">Papua New Guinea</option>
+<option value="159">Paraguay</option>
+<option value="160">Peru</option>
+<option value="161">Philippines</option>
+<option value="162">Poland</option>
+<option value="163">Portugal</option>
+<option value="164">Puerto Rico</option>
+<option value="165">Qatar</option>
+<option value="166">Reunion Island</option>
+<option value="167">Romania</option>
+<option value="168">Russia</option>
+<option value="169">Rwanda</option>
+<option value="170">Saint Kitts and Nevis</option>
+<option value="171">Saint Lucia</option>
+<option value="172">Saint Vincent and the Grenadines</option>
+<option value="173">Samoa</option>
+<option value="174">San Marino</option>
+<option value="175">Sao Tome and Pr&#237;ncipe</option>
+<option value="176">Saudi Arabia</option>
+<option value="177">Senegal</option>
+<option value="178">Serbia</option>
+<option value="179">Seychelles</option>
+<option value="180">Sierra Leone</option>
+<option value="181">Singapore</option>
+<option value="182">Slovakia</option>
+<option value="183">Slovenia</option>
+<option value="184">Solomon Islands</option>
+<option value="185">Somalia</option>
+<option value="186">South Africa</option>
+<option value="187">Spain</option>
+<option value="188">Sri Lanka</option>
+<option value="189">Sudan</option>
+<option value="190">Suriname</option>
+<option value="191">Swaziland</option>
+<option value="192">Sweden</option>
+<option value="193">Switzerland</option>
+<option value="194">Syria</option>
+<option value="195">Taiwan</option>
+<option value="196">Tajikistan</option>
+<option value="197">Tanzania</option>
+<option value="198">Thailand</option>
+<option value="199">Tibet</option>
+<option value="200">Timor-Leste&#160;(East Timor)</option>
+<option value="201">Togo</option>
+<option value="202">Tokelau</option>
+<option value="203">Tonga</option>
+<option value="204">Trinidad and Tobago</option>
+<option value="205">Tunisia</option>
+<option value="206">Turkey</option>
+<option value="207">Turkmenistan</option>
+<option value="208">Tuvalu</option>
+<option value="209">Uganda</option>
+<option value="210">Ukraine</option>
+<option value="211">United Arab Emirates</option>
+<option value="212">United Kingdom</option>
+<option value="213">United States</option>
+<option value="214">Uruguay</option>
+<option value="215">Uzbekistan</option>
+<option value="216">Vanuatu</option>
+<option value="217">Vatican City State</option>
+<option value="218">Venezuela</option>
+<option value="219">Vietnam</option>
+<option value="220">Virgin Islands (British)</option>
+<option value="221">Virgin Islands (U.S.)</option>
+<option value="222">Wallis and Futuna Islands</option>
+<option value="223">Western Sahara</option>
+<option value="224">Yemen</option>
+<option value="225">Zambia</option>
+<option value="226">Zimbabwe</option>
+<option value="227">Not found</option>
+<option value="228">Undermined Nationality</option>
+<option value="229">Resident</option>
+<option value="230">Turkestan</option>
+</select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-12 countryDiv">
+                                                <label class="mandatory control-label">Country</label>
+                                                <div class="LargeDropDownListCountryId" style="border: 1px white; border-style: solid;">
+                                                    <select data-val="true" data-val-number="The field CountryId must be a number." data-val-required="The CountryId field is required." id="CountryId" name="CountryId" class="form-control"  title="Country"  onchange="ddlCountryOnchange(this)" ><option value="">Select...</option>
+<option value="1">Afghanistan</option>
+<option value="2">Albania</option>
+<option value="3">Algeria</option>
+<option value="4">American Samoa</option>
+<option value="5">Andorra</option>
+<option value="6">Angola</option>
+<option value="7">Anguilla</option>
+<option value="8">Antarctica</option>
+<option value="9">Antigua and Barbuda</option>
+<option value="10">Argentina</option>
+<option value="11">Armenia</option>
+<option value="12">Aruba</option>
+<option value="13">Australia</option>
+<option value="14">Austria</option>
+<option value="15">Azerbaijan</option>
+<option value="16">Bahamas</option>
+<option value="17">Bahrain</option>
+<option value="18">Bangladesh</option>
+<option value="19">Barbados</option>
+<option value="20">Belarus</option>
+<option value="21">Belgium</option>
+<option value="22">Belize</option>
+<option value="23">Benin</option>
+<option value="24">Bermuda</option>
+<option value="25">Bhutan</option>
+<option value="26">Bolivia</option>
+<option value="27">Bosnia and Herzegovina</option>
+<option value="28">Botswana</option>
+<option value="29">Brazil</option>
+<option value="30">Brunei Darussalam</option>
+<option value="31">Bulgaria</option>
+<option value="32">Burkina Faso</option>
+<option value="33">Burundi</option>
+<option value="34">Cambodia</option>
+<option value="35">Cameroon</option>
+<option value="36">Canada</option>
+<option value="37">Cape Verde</option>
+<option value="38">Cayman Islands</option>
+<option value="39">Central African Republic</option>
+<option value="40">Chad</option>
+<option value="41">Chile</option>
+<option value="42">China</option>
+<option value="43">Colombia</option>
+<option value="44">Comoros</option>
+<option value="45">Democratic Republic of the Congo&#160;(Kinshasa)</option>
+<option value="46">Congo, Republic of&#160;(Brazzaville)</option>
+<option value="47">Cook Islands</option>
+<option value="48">Costa Rica</option>
+<option value="49">Cote d&#39;Ivoire</option>
+<option value="50">Croatia</option>
+<option value="51">Cuba</option>
+<option value="52">Cyprus</option>
+<option value="53">Czech Republic</option>
+<option value="54">Denmark</option>
+<option value="55">Djibouti</option>
+<option value="56">Dominica</option>
+<option value="57">Dominican Republic</option>
+<option value="58">East Timor&#160;Timor-Leste</option>
+<option value="59">Ecuador</option>
+<option value="60">Egypt</option>
+<option value="61">El Salvador</option>
+<option value="62">Equatorial Guinea</option>
+<option value="63">Eritrea</option>
+<option value="64">Estonia</option>
+<option value="65">Ethiopia</option>
+<option value="66">Falkland Islands</option>
+<option value="67">Faroe Islands</option>
+<option value="68">Fiji</option>
+<option value="69">Finland</option>
+<option value="70">France</option>
+<option value="71">French Guiana</option>
+<option value="72">French Polynesia</option>
+<option value="73">Gabon</option>
+<option value="74">Gambia</option>
+<option value="75">Georgia</option>
+<option value="76">Germany</option>
+<option value="77">Ghana</option>
+<option value="78">Gibraltar</option>
+<option value="79">Greece</option>
+<option value="80">Greenland</option>
+<option value="81">Grenada</option>
+<option value="82">Guadeloupe</option>
+<option value="83">Guam</option>
+<option value="84">Guatemala</option>
+<option value="85">Guinea</option>
+<option value="86">Guinea-Bissau</option>
+<option value="87">Guyana</option>
+<option value="88">Haiti</option>
+<option value="89">Honduras</option>
+<option value="90">Hong Kong</option>
+<option value="91">Hungary</option>
+<option value="92">Iceland</option>
+<option value="93">India</option>
+<option value="94">Indonesia</option>
+<option value="95">Iran</option>
+<option value="96">Iraq</option>
+<option value="97">Ireland</option>
+<option value="98">Italy</option>
+<option value="99">Jamaica</option>
+<option value="100">Japan</option>
+<option value="101">Jordan</option>
+<option value="102">Kazakhstan</option>
+<option value="103">Kenya</option>
+<option value="104">Kiribati</option>
+<option value="105">Korea, (North Korea)</option>
+<option value="106">Korea, (South Korea)</option>
+<option value="107">Kuwait</option>
+<option value="108">Kyrgyzstan</option>
+<option value="109">Lao, PDR</option>
+<option value="110">Latvia</option>
+<option value="111">Lebanon</option>
+<option value="112">Lesotho</option>
+<option value="113">Liberia</option>
+<option value="114">Libya</option>
+<option value="115">Liechtenstein</option>
+<option value="116">Lithuania</option>
+<option value="117">Luxembourg</option>
+<option value="118">Macao</option>
+<option value="119">Macedonia, Rep.</option>
+<option value="120">Madagascar</option>
+<option value="121">Malawi</option>
+<option value="122">Malaysia</option>
+<option value="123">Maldives</option>
+<option value="124">Mali</option>
+<option value="125">Malta</option>
+<option value="126">Marshall Islands</option>
+<option value="127">Martinique</option>
+<option value="128">Mauritania</option>
+<option value="129">Mauritius</option>
+<option value="130">Mexico</option>
+<option value="131">Micronesia</option>
+<option value="132">Moldova</option>
+<option value="133">Monaco</option>
+<option value="134">Mongolia</option>
+<option value="135">Montenegro</option>
+<option value="136">Montserrat</option>
+<option value="137">Morocco</option>
+<option value="138">Mozambique</option>
+<option value="139">Myanmar, Burma</option>
+<option value="140">Namibia</option>
+<option value="141">Nauru</option>
+<option value="142">Nepal</option>
+<option value="143">Netherlands</option>
+<option value="144">Netherlands Antilles</option>
+<option value="145">New Caledonia</option>
+<option value="146">New Zealand</option>
+<option value="147">Nicaragua</option>
+<option value="148">Niger</option>
+<option value="149">Nigeria</option>
+<option value="150">Niue</option>
+<option value="151">Northern Mariana Islands</option>
+<option value="152">Norway</option>
+<option value="153">Oman</option>
+<option value="154">Pakistan</option>
+<option value="155">Palau</option>
+<option value="156">Palestine</option>
+<option value="157">Panama</option>
+<option value="158">Papua New Guinea</option>
+<option value="159">Paraguay</option>
+<option value="160">Peru</option>
+<option value="161">Philippines</option>
+<option value="162">Poland</option>
+<option value="163">Portugal</option>
+<option value="164">Puerto Rico</option>
+<option value="165">Qatar</option>
+<option value="166">Reunion Island</option>
+<option value="167">Romania</option>
+<option value="168">Russia</option>
+<option value="169">Rwanda</option>
+<option value="170">Saint Kitts and Nevis</option>
+<option value="171">Saint Lucia</option>
+<option value="172">Saint Vincent and the Grenadines</option>
+<option value="173">Samoa</option>
+<option value="174">San Marino</option>
+<option value="175">Sao Tome and Pr&#237;ncipe</option>
+<option value="176">Saudi Arabia</option>
+<option value="177">Senegal</option>
+<option value="178">Serbia</option>
+<option value="179">Seychelles</option>
+<option value="180">Sierra Leone</option>
+<option value="181">Singapore</option>
+<option value="182">Slovakia</option>
+<option value="183">Slovenia</option>
+<option value="184">Solomon Islands</option>
+<option value="185">Somalia</option>
+<option value="186">South Africa</option>
+<option value="187">Spain</option>
+<option value="188">Sri Lanka</option>
+<option value="189">Sudan</option>
+<option value="190">Suriname</option>
+<option value="191">Swaziland</option>
+<option value="192">Sweden</option>
+<option value="193">Switzerland</option>
+<option value="194">Syria</option>
+<option value="195">Taiwan</option>
+<option value="196">Tajikistan</option>
+<option value="197">Tanzania</option>
+<option value="198">Thailand</option>
+<option value="199">Tibet</option>
+<option value="200">Timor-Leste&#160;(East Timor)</option>
+<option value="201">Togo</option>
+<option value="202">Tokelau</option>
+<option value="203">Tonga</option>
+<option value="204">Trinidad and Tobago</option>
+<option value="205">Tunisia</option>
+<option value="206">Turkey</option>
+<option value="207">Turkmenistan</option>
+<option value="208">Tuvalu</option>
+<option value="209">Uganda</option>
+<option value="210">Ukraine</option>
+<option value="211">United Arab Emirates</option>
+<option value="212">United Kingdom</option>
+<option value="213">United States</option>
+<option value="214">Uruguay</option>
+<option value="215">Uzbekistan</option>
+<option value="216">Vanuatu</option>
+<option value="217">Vatican City State</option>
+<option value="218">Venezuela</option>
+<option value="219">Vietnam</option>
+<option value="220">Virgin Islands (British)</option>
+<option value="221">Virgin Islands (U.S.)</option>
+<option value="222">Wallis and Futuna Islands</option>
+<option value="223">Western Sahara</option>
+<option value="224">Yemen</option>
+<option value="225">Zambia</option>
+<option value="226">Zimbabwe</option>
+<option value="227">Not found</option>
+<option value="228">Undermined Nationality</option>
+<option value="229">Resident</option>
+<option value="230">Turkestan</option>
+</select>
+                                                </div>
+                                            </div>
+                                        
+                                        
+                                        <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-12 RegionDiv">
+                                                  <label class="mandatory control-label">Region</label>
+                                                  <div class="LargeDropDownListRegionId" style="border: 1px white; border-style: solid;">
+                                                      <select data-val="true" data-val-number="The field RegionId must be a number." data-val-required="The RegionId field is required." id="RegionId" name="RegionId" class="form-control"  title="Country" ><option value="">Select...</option>
+<option value="1">Riyadh</option>
+<option value="2">Makkah</option>
+<option value="3">Madinah</option>
+<option value="4">Eastern Province</option>
+<option value="5">Asir</option>
+<option value="6">Jazan</option>
+<option value="7">Bahah</option>
+<option value="8">Qassim</option>
+<option value="9">Ha&#39;il</option>
+<option value="10">Tabuk</option>
+<option value="11">Jawf</option>
+<option value="12">Northern Borders</option>
+<option value="13">Najran</option>
+</select>
+                                                  </div>
+                                              </div>
+                                              <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-12 CityDiv">
+                                                  <label class="mandatory control-label" id="CityIdLabel">City</label>
+                                                  <div class="LargeDropDownListCityId" style="border: 1px white; border-style: solid;">
+                                                      <select data-val="true" data-val-number="The field CityId must be a number." data-val-required="The CityId field is required." id="CityId" name="CityId" class="form-control" ><option value="">Select...</option>
+</select>
+                                                  </div>
+                                              </div>
+                                         
+                                        </div>
+                                          
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group  col-lg-8 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-12 mobileDiv" id="divMobileNumber">
+                                                <label class="mandatory control-label" id="lblMobileNumber">Mobile No</label>
+                                                <div class="go-left">
+                                                    <input
+                                                        
+              
+                                                     
+                                                        type="text" 
+                                                        class="phone form-control" 
+                                                        id="txtMobileNumber" 
+                                                               
+                                                        />
+                                                    <input type="hidden" id="MobileNumber" name="MobileNumber" />
+                                                    <input type="hidden" id="MobileCountryCode" name="MobileCountryCode" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-12 OtherMobileDiv" id="divOtherMobileNumber">
+                                                <label id="lblMobileNumber2 control-label" class="optional">Other Mobile Number</label>
+                                                <div class="go-left">
+                                                    <input
+                                                        
+               
+                                                        
+                                                        type="text" 
+                                                        class="phone form-control" 
+                                                        id="txtMobileNumber2"
+                                                            
+                                                        />
+                                                    <input type="hidden" id="MobileNumber2" name="MobileNumber2" />
+                                                    <input type="hidden" id="MobileCountryCode2" name="MobileCountryCode2" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-12 phoneDiv" id="divPhoneNumber">
+                                                <label class="mandatory control-label">Land Line Phone Number</label>
+                                                <div class="go-left">
+                                                    
+                                                    <input
+                                                        
+             
+                                                      
+                                                        type="text" 
+                                                        class="phone form-control" 
+                                                        id="txtPhoneNumber"  
+                                                                 
+                                                        />
+                                                    <input type="hidden" id="PhoneNumber" name="PhoneNumber" />
+                                                    <input type="hidden" id="PhoneCountryCode" name="PhoneCountryCode" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group  col-lg-8 col-md-12 col-sm-12 col-xs-12 AddressDiv">
+                                            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                                                <label class="optional">Address</label>
+<input id="Address" name="Address" type="text" value=""  class="form-control"  title="Address" />                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                                <div class="clearfix"><hr></div>
+                                <button type="button" class="btn btn-primary" onclick="saveAccountInfo()">Send</button>
+                            </div>
+                          <div class="tab-pane" role="tabpanel" id="complete">
+                           <h3><center>Complete Registration Successfully</center></h3>
+                          <div class="clearfix"><hr/></div>
+      <div id="dvViewNotification" class="clearfix" style="display: none; direction: ltr">
+        <div id="dvEmail" class="row" style="display: none;">
+            <label class="label">
+                Email  
+            </label>
+            <span id="spnEmail" class="label" style="color: #999;"></span>
+        </div>
+        <br class="clear" />
+        <div id="dvSMS" class="row" style="display: none;">
+            <label class="label">
+                SMS
+            </label>
+            <span id="spnSMS" class="label" style="color: #999;"></span>
+        </div>
+        <div id="dvComments" class="row" style="display: none;">
+            <label class="label">
+                Comments
+            </label>
+            <br class="clear" />
+            <span id="spnComments" class="label" style="color: #999;"></span>
+        </div>
+    </div>
+    <center><a class="btn btn-primary" href="../index.html">Login </a></center>
+                      </div>
+                      <div class="clearfix"></div>
+                   </div>
+            </div>
+            </section>
+                <br clear="all" />
+            </div>
+        </div>
+    </div>
+</form><script type="text/javascript">
+
+
+    var maxphoneNumber = $('#PhoneNumberLength').val();
+    var maxMobileNumber = $('#MobileNumberLength').val();
+    $(function () {
+        setTimeout(function () {
+            var txtPhoneNumber = $('#txtPhoneNumber').val();
+            if (txtPhoneNumber != "") {
+                txtPhoneNumber = txtPhoneNumber.replace(/\s/g, '');
+                var phoneLength = parseInt($('#PhoneNumberLength').val());
+                if (txtPhoneNumber.length > phoneLength) {
+                    txtPhoneNumber = txtPhoneNumber.substring(1, txtPhoneNumber.length);
+                }
+                $('#txtPhoneNumber').val(txtPhoneNumber);
+
+            }
+            $('#txtPhoneNumber').attr('maxlength', maxphoneNumber);
+
+            ///////////////////////
+
+            /////////////////////////////
+
+            var txtMobileNumber = $('#txtMobileNumber').val();
+            if (txtMobileNumber != "") {
+                txtMobileNumber = txtMobileNumber.replace(/\s/g, '');
+                var mobileLength = parseInt($('#MobileNumberLength').val());
+                if (txtMobileNumber.length > mobileLength) {
+                    txtMobileNumber = txtMobileNumber.substring(1, txtMobileNumber.length);
+                }
+                $('#txtMobileNumber').val(txtMobileNumber);
+
+
+            }
+            $('#txtMobileNumber').attr('maxlength', maxMobileNumber);
+
+            var txtMobileNumber2 = $('#txtMobileNumber2').val();
+            if (txtMobileNumber2 != "") {
+                txtMobileNumber2 = txtMobileNumber.replace(/\s/g, '');
+                var mobileLength = parseInt($('#MobileNumberLength').val());
+                if (txtMobileNumber2.length > mobileLength) {
+                    txtMobileNumber2 = txtMobileNumber.substring(1, txtMobileNumber.length);
+                }
+                $('#txtMobileNumber2').val(txtMobileNumber2);
+
+            }
+            $('#txtMobileNumber2').attr('maxlength', maxMobileNumber);
+
+
+
+        }, 1000);
+        //maxlength=""
+    }); 
+            
+</script>
+
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+    <div id="mySidenav" class="sidenav hidden-print">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a> <a  onclick="document.location=' ../index.html'">
+            <span lang="en" class="btn btn-default " onclick=""><span class="sa">
+            </span><strong>عربي</strong></span> </a>
+    </div>
+    
+    <div id="footer" class="hidden-print">
+        <div class="container">
+            <div class="row footer-slideup">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <fieldset>
+                        <legend><i class="fa fa-life-ring" aria-hidden="true"></i>Technical support</legend>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="col-lg-12">
+                                    <p class="text-default text-justify">
+                                        If you have a technical problem, you can contact us through:</p>
+                                    <ul class="contact-circle">
+                                        <li><span class="text-default text-justify">
+                                                <a href="https://support.etec.gov.sa/" target="_blank">support.etec.gov.sa</a></span> </li>
+                                        <br />
+                                        <br />
+                                        <li><a href="JavaScript:void(0);" onclick="GotToLinkFooter('https://etec.gov.sa/en/page/privacy')">
+                                            <span class="text-default text-justify">
+                                                Privacy policy
+                                            </span></a></li>
+                                        <script type="text/javascript">
+                                            function GotToLinkFooter(url) {
+                                                window.open(url, '_blank');
+                                            }
+                                        </script>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <fieldset>
+                        <legend>&nbsp;</legend>
+                    </fieldset>
+                </div>
+            </div>
+            <!-- ./row -->
+            <div class="row">
+                <div class="col-lg-6 col-md-6 txt-center clearfix">
+                    <span>Copyright &#169; 2024 Education &amp; Training Evaluation Commission</span>
+                </div>
+                <div class="col-lg-6 col-md-6 txt-center clearfix">
+                    <ul class="contact-circle-footer pull-right">
+                        <li class="rss"><a href="http://www.qiyas.sa/Pages/RSS.aspx" target="_blank"><i class="fa fa-rss">
+                        </i></a></li>
+                        <li class="linkedin"><a href="https://www.linkedin.com/company/etecksa/" target="_blank">
+                            <i class="fa fa-linkedin"></i></a></li>
+                        <li class="instagram"><a href="https://instagram.com/etecksa" target="_blank"><i
+                            class="fa fa-instagram"></i></a></li>
+                        <li class="twitter"><a href="https://twitter.com/EtecKsa" target="_blank"><i class="fa fa-twitter">
+                        </i></a></li>
+                        <li class="facebook"><a href="https://www.facebook.com/ETECKSA" target="_blank"><i
+                            class="fa fa-facebook"></i></a></li>
+                        <li class="youtube"><a href="https://www.youtube.com/etecksa" target="_blank"><i
+                            class="fa fa-youtube"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="footer-toggle">
+                <div class="container" style="overflow: hidden;">
+                    <div class="pull-right footer-toggle-link" onclick="javascript: footerToggle();">
+                        <span>Technical support</span> <i class="fa fa-angle-double-down">
+                        </i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.basic').flagStrap();
+            $(".phone").intlTelInput({
+                utilsScript: '/Qiyas.TRAS.Web.Internet/Static-New/en/js/utils.js'
+            });
+        });
+    </script>
+    <a style="display: none;" href="#" data-toggle="modal" data-target="#GlobalDailogMsg"
+        class="pull-right"><strong id="errorDailogClick"><i class="glyphicon glyphicon-chevron-left"
+            aria-hidden="true"></i></strong></a>
+    <div class="modal fade" id="GlobalDailogMsg" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        &times;</button>
+                    <h4 class="modal-title" id="globalPopErrorTitle">
+                        Attention</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger" id="globalErrorMessageBody">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button onclick="topFunction()" id="btnTopPage">
+        <i class="fa fa-chevron-up"></i>
+    </button>
+    <link href="../Static-New/en/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+        <link href="../Static-New/en/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
+    <script type="text/javascript">
+        window.onscroll = function () { scrollFunction(); };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                $('#btnTopPage').show();
+            } else {
+                $('#btnTopPage').hide();
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            document.body.scrollTop = 0; // For Safari
+            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+        }
+
+        document.onkeydown = function (e) {
+            if (event.keyCode == 123) {
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+                return false;
+            }
+            if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+                return false;
+            }
+        }
+    </script>
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KZ0DEX5XQL"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-KZ0DEX5XQL');
+    </script>
+</body>
+
+<!-- Mirrored from e-services.qiyas.sa/Qiyas.TRAS.Web.Internet/Registration/CompleteAccountRequest by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 02 Aug 2024 15:49:59 GMT -->
+</html>
